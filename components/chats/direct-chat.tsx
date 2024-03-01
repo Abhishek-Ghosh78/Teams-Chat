@@ -105,10 +105,10 @@ export const DirectChat = ({
   const isImage = !isPDF && fileUrl;
 
   return (
-    <div className="relative group h-full w-full p-8 ">
+    <div className="p-4">
       {isOwner && currentMember && (
         <div>
-          <div className="flex items-center justify-end space-x-2 w-full">
+          <div className="flex items-center justify-end space-x-2 ">
             <div className="flex flex-col items-end">
               {isImage && fileUrl ? (
                 <a

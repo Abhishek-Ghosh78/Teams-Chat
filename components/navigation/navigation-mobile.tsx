@@ -26,7 +26,7 @@ export const NavigationMobile = async () => {
   });
 
   return (
-    <div className="h-full w-96 px-4 py-6 dark:bg-neutral-800/50 relative">
+    <div className="h-full w-[270px] px-4 py-6 dark:bg-neutral-800/50 relative">
       <NavigationHeader chat={chat} />
       {/* <NavigationSearch /> */}
       <Separator className="mt-2 w-full rounded-md" />
@@ -43,7 +43,6 @@ export const NavigationMobile = async () => {
       </ScrollArea>
       <div className="pb-3 items-center flex-col space-y-4">
         {/* <ModeToggle /> */}
-        <UserButton />
       </div>
     </div>
   );

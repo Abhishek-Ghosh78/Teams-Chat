@@ -10,18 +10,14 @@ export const SocketIndicator = () => {
       <Badge
         variant="outline"
         className="bg-neutral-600 text-white border-none rounded-lg"
-      >
-        Polling
-      </Badge>
+      ></Badge>
     );
   }
 
   return (
     <Badge
       variant="outline"
-      className="bg-neutral-600 text-white border-none rounded-lg"
-    >
-      Connected
-    </Badge>
+      className="bg-neutral-600 text-white border-none rounded-lg "
+    ></Badge>
   );
 };

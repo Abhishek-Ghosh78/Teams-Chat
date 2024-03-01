@@ -47,20 +47,18 @@ export const GroupMembers = ({ groups, profile, chat }: GroupMembersProps) => {
         >
           <a className="flex space-x-2 justify-between items-center mt-2 px-2 py-4  cursor-pointer">
             <div className="flex space-x-4 items-center justify-between">
-              <UserAvatar className="h-2 w-2 text-sm" src={group.imageUrl} />
+              <UserAvatar className=" h-6 w-6 text-sm" src={group.imageUrl} />
 
               <h1 className="text-md font-bold text-lg text-zinc-500 hover:text-zinc-600 dark:text-zinc-400">
                 {group.name}
               </h1>
             </div>
             <div>
-              <DropdownMenu>
+              {/* <DropdownMenu>
                 <DropdownMenuTrigger asChild className="focus:outline-none">
                   <MoreVertical className="h-4 w-4 text-gray-500 dark:text-gray-300 hover:text-gray-600 ml-8" />
                 </DropdownMenuTrigger>
-                {/* {group.groupMembers.map((member: any) =>
-                  // console.log(member.length)
-                )} */}
+
                 <DropdownMenuContent className="flex flex-col justify-between">
                   <DropdownMenuItem
                     onClick={() => onOpen("groupInvite", { groupChat: group })}
@@ -86,7 +84,7 @@ export const GroupMembers = ({ groups, profile, chat }: GroupMembersProps) => {
                     <Users className="h-4 w-4 ml-5" />
                   </DropdownMenuItem>
                 </DropdownMenuContent>
-              </DropdownMenu>
+              </DropdownMenu> */}
             </div>
           </a>
         </div>

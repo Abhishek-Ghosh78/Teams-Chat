@@ -26,7 +26,7 @@ export const ChatMembers = ({ currentChat, members }: ChatMemberProps) => {
           transition p-4"
         >
           <UserAvatar
-            className="h-2 w-2 text-sm"
+            className="h-6 w-6 text-sm"
             src={member.profile.imageUrl}
           />
           <div>

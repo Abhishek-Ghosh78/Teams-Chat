@@ -1,6 +1,13 @@
 "use client";
 
-import { ChevronDown, GroupIcon, Plus, UserPlus, Users } from "lucide-react";
+import {
+  ChevronDown,
+  GroupIcon,
+  Home,
+  Plus,
+  UserPlus,
+  Users,
+} from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -9,6 +16,7 @@ import {
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
 import { useModal } from "@/hooks/use-modal-store";
+import { useRouter } from "next/navigation";
 
 interface NavigationHeaderProps {
   chat: any;
@@ -16,6 +24,8 @@ interface NavigationHeaderProps {
 
 export const NavigationHeader = ({ chat }: NavigationHeaderProps) => {
   const { onOpen } = useModal();
+
+  const router = useRouter();
 
   // console.log(chat?.id);
 
@@ -28,6 +38,13 @@ export const NavigationHeader = ({ chat }: NavigationHeaderProps) => {
         </button>
       </DropdownMenuTrigger>
       <DropdownMenuContent>
+        <DropdownMenuItem
+          onClick={() => router.push("/")}
+          className="text-gray-600 dark:text-gray-400 px-3 py-2 text-sm cursor-pointer"
+        >
+          Home
+          <Home className="h-4 w-4 ml-5" />
+        </DropdownMenuItem>
         <DropdownMenuItem
           onClick={() => {
             onOpen("invite", { chat: chat });

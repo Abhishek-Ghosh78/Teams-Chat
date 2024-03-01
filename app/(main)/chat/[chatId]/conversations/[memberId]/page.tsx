@@ -79,7 +79,7 @@ const conversation = async ({ params, searchParams }: MessageProps) => {
     memberOne.profileId === profile.id ? memberTwo : memberOne;
 
   return (
-    <div className="h-full  md:flex md:flex-col">
+    <div className="flex flex-col h-full">
       <ChatNavbar member={otherMember} chat={chat} />
       {searchParams.video && (
         <MediaRoom id={conversation.id} video={true} audio={true} />
