@@ -1,0 +1,21 @@
+import { GroupChat, GroupMember, Profile } from "@prisma/client";
+import { Server as NetServer, Socket } from "net";
+import { Server as SocketIOServer } from "socket.io";
+import { NextApiResponse } from "next";
+
+export type GroupChatWithMember = {
+  groups: GroupChat & {
+    groupMember: GroupMember &
+      {
+        profile: Profile;
+      }[];
+  };
+};
+
+export type NextApiResponseServerIo = NextApiResponse & {
+  socket: Socket & {
+    server: NetServer & {
+      io: SocketIOServer;
+    };
+  };
+};

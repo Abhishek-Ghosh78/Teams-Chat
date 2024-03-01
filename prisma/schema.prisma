@@ -1,0 +1,126 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum MemberRole {
+  ADMIN
+  GUEST
+}
+
+enum MessageType {
+  AUDIO
+  VIDEO
+  TEXT
+}
+
+model Profile {
+  id           String        @id @default(uuid())
+  name         String
+  email        String
+  userId       String        @unique
+  imageUrl     String        @db.Text
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  member       Member[]
+  chat         Chat?
+  groupChats   GroupChat[]
+  groupMembers GroupMember[]
+}
+
+model Chat {
+  id         String  @id @default(uuid())
+  name       String
+  inviteCode String  @unique
+  profileId  String  @unique
+  profile    Profile @relation(fields: [profileId], references: [id], onDelete: Cascade)
+
+  members Member[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Member {
+  id String @id @default(uuid())
+
+  profileId String
+  profile   Profile @relation(fields: [profileId], references: [id], onDelete: Cascade)
+  chatId    String
+  chat      Chat    @relation(fields: [chatId], references: [id], onDelete: Cascade)
+
+  sender         Conversation[]  @relation("memberOne")
+  receiver       Conversation[]  @relation("memberTwo")
+  directMessages DirectMessage[]
+}
+
+model Conversation {
+  id          String @id @default(uuid())
+  memberOneId String
+  memberOne   Member @relation("memberOne", fields: [memberOneId], references: [id], onDelete: Cascade)
+
+  memberTwoId    String
+  memberTwo      Member          @relation("memberTwo", fields: [memberTwoId], references: [id], onDelete: Cascade)
+  directMessages DirectMessage[]
+
+  @@unique([memberOneId, memberTwoId])
+}
+
+model DirectMessage {
+  id             String       @id @default(uuid())
+  content        String       @db.Text
+  fileUrl        String?      @db.Text
+  conversationId String
+  conversation   Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  memberId       String
+  member         Member       @relation(fields: [memberId], references: [id], onDelete: Cascade)
+  deleted        Boolean      @default(false)
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+}
+
+model GroupChat {
+  id            String         @id @default(uuid())
+  name          String
+  imageUrl      String         @db.Text
+  inviteCode    String         @unique
+  profileId     String
+  profile       Profile        @relation(fields: [profileId], references: [id], onDelete: Cascade)
+  groupMessages GroupMessage[]
+  groupMembers  GroupMember[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model GroupMember {
+  id        String     @id @default(uuid())
+  role      MemberRole @default(GUEST)
+  profileId String
+  profile   Profile    @relation(fields: [profileId], references: [id], onDelete: Cascade)
+
+  groupChatId   String
+  groupChat     GroupChat      @relation(fields: [groupChatId], references: [id], onDelete: Cascade)
+  groupMessages GroupMessage[]
+}
+
+model GroupMessage {
+  id        String      @id @default(uuid())
+  content   String      @db.Text
+  fileUrl   String?     @db.Text
+  groupId   String
+  groupChat GroupChat   @relation(fields: [groupId], references: [id], onDelete: Cascade)
+  memberId  String
+  member    GroupMember @relation(fields: [memberId], references: [id], onDelete: Cascade)
+  deleted   Boolean     @default(false)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
