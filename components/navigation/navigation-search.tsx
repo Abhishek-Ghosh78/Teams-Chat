@@ -12,21 +12,20 @@ import {
 import { CommandGroup } from "cmdk";
 import { useParams, useRouter } from "next/navigation";
 
-// interface ServerSearchProps {
-//   data: {
-//     label: string;
-//     type: "channel" | "member";
-//     data:
-//       | {
-//           icon: React.ReactNode;
-//           name: string;
-//           id: string;
-//         }[]
-//       | undefined;
-//   }[];
-// }
+interface ServerSearchProps {
+  data: {
+    label: string;
+    type: "group" | "member";
+    data:
+      | {
+          name: string;
+          id: string;
+        }[]
+      | undefined;
+  }[];
+}
 
-export const NavigationSearch = () => {
+export const NavigationSearch = ({ data }: ServerSearchProps) => {
   const [open, setOpen] = useState(false);
   const router = useRouter();
   const params = useParams();
@@ -42,6 +41,17 @@ export const NavigationSearch = () => {
     document.addEventListener("keydown", down);
     return () => document.removeEventListener("keydown", down);
   }, []);
+
+  const onClick = ({ id, type }: { id: string; type: "group" | "member" }) => {
+    setOpen(false);
+    if (type === "member") {
+      return router.push(`/chat/${params?.chatId}/conversations/${id}`);
+    }
+
+    if (type === "group") {
+      return router.push(`/servers/${params?.serverId}/channels/${id}`);
+    }
+  };
 
   return (
     <div className="mt-4">
@@ -60,7 +70,26 @@ export const NavigationSearch = () => {
       </button>
       <CommandDialog open={open} onOpenChange={setOpen}>
         <CommandInput placeholder="Search all channels and members" />
-        <CommandList></CommandList>
+        <CommandList>
+          <CommandEmpty>No Results found</CommandEmpty>
+          {data.map(({ label, type, data }) => {
+            if (!data?.length) return null;
+            return (
+              <CommandGroup key={label} heading={label}>
+                {data.map(({ name, id }) => {
+                  return (
+                    <CommandItem
+                      key={id}
+                      onSelect={() => onClick({ id, type })}
+                    >
+                      <span>{name}</span>
+                    </CommandItem>
+                  );
+                })}
+              </CommandGroup>
+            );
+          })}
+        </CommandList>
       </CommandDialog>
     </div>
   );

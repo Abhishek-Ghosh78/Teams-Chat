@@ -28,7 +28,9 @@ export default function RootLayout({
   return (
     <ClerkProvider>
       <html lang="en" suppressHydrationWarning>
-        <body className={(cn(inter.className), "bg-white dark:bg-zinc-800")}>
+        <body
+          className={(cn(inter.className), "bg-white dark:bg-neutral-800/10")}
+        >
           <ThemeProvider
             attribute="class"
             defaultTheme="dark"

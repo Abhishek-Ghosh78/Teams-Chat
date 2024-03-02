@@ -75,7 +75,7 @@ export const DirectMessageFileModal = () => {
 
   return (
     <Dialog open={isModalOpen} onOpenChange={handleModalClose}>
-      <DialogContent className="bg-white text-black p-0 overflow-hidden">
+      <DialogContent className="bg-neutral-800/10 text-white p-0 overflow-hidden">
         <DialogHeader className="pt-8 px-6">
           <DialogTitle className="text-center text-2xl font-bold">
             Add an attachment
@@ -87,7 +87,7 @@ export const DirectMessageFileModal = () => {
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
             <div className="space-y-8 px-6">
-              <div className="flex items-center justify-center text-center">
+              <div className="flex border border-dashed border-white items-center justify-center text-center">
                 {/* TODO: Image Upload */}
                 <FormField
                   control={form.control}
@@ -106,8 +106,8 @@ export const DirectMessageFileModal = () => {
                 />
               </div>
             </div>
-            <DialogFooter className="bg-gray-100 px-6 py-4">
-              <Button disabled={isLoading} variant="default">
+            <DialogFooter className="bg-neutral-600/5 px-6 py-4">
+              <Button disabled={isLoading} variant="ghost">
                 Send
               </Button>
             </DialogFooter>

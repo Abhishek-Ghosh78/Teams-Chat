@@ -23,12 +23,34 @@ export const NavigationSidebar = async () => {
         },
       },
     },
+    include: {
+      members: {
+        include: {
+          profile: true,
+        },
+      },
+    },
   });
 
+  const members = chat?.members.filter(
+    (member) => member.profileId !== profile.id
+  );
+
   return (
-    <div className="h-full w-80 px-4 py-6 dark:bg-neutral-800/50 relative">
+    <div className="h-full w-96 px-4 py-6 dark:bg-neutral-800/50 relative">
       <NavigationHeader chat={chat} />
-      <NavigationSearch />
+      <NavigationSearch
+        data={[
+          {
+            label: "Members",
+            type: "member",
+            data: members?.map((member) => ({
+              id: member.id,
+              name: member.profile.name,
+            })),
+          },
+        ]}
+      />
       <Separator className="mt-2 w-full rounded-md" />
       <ScrollArea>
         <div className="flex items-center mt-2 text-lg font-bold text-zinc-400">
@@ -42,8 +64,7 @@ export const NavigationSidebar = async () => {
         <ChatGroup chat={chat} />
       </ScrollArea>
       <div className="pb-3 mt-auto  items-center flex-col gap-y-4 absolute bottom-0">
-        <ModeToggle />
-        <UserButton />
+        {/* <ModeToggle /> */}
       </div>
     </div>
   );

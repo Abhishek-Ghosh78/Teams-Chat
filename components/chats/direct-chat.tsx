@@ -89,7 +89,7 @@ export const DirectChat = ({
         socketQuery,
       });
       form.reset();
-      router.refresh();
+      // router.refresh();
       setIsEditing(false);
     } catch (error) {
       console.log(error);
@@ -105,7 +105,7 @@ export const DirectChat = ({
   const isImage = !isPDF && fileUrl;
 
   return (
-    <div className="p-4">
+    <div className="group p-5 md:mx-20">
       {isOwner && currentMember && (
         <div>
           <div className="flex items-center justify-end space-x-2 ">
@@ -171,11 +171,11 @@ export const DirectChat = ({
                 </Form>
               )}
               {canDeleteMessage && (
-                <div className="hidden group-hover:flex items-center gap-x-2 absolute p-1 -top-2 right-5 bg-white dark:bg-zinc-800 border rounded-sm">
+                <div className="hidden group-hover:flex items-center gap-x-2 p-1 bg-white dark:bg-zinc-800 border rounded-sm">
                   {canEditMessage && (
                     <ActionTooltip label="Edit">
                       <Edit
-                        onClick={() => setIsEditing(true)}
+                        onClick={() => setIsEditing(!isEditing)}
                         className="cursor-pointer ml-auto w-4 h-4 text-zinc-500 hover:text-zinc-600 dark:hover:text-zinc-300 transition"
                       />
                     </ActionTooltip>
@@ -234,11 +234,11 @@ export const DirectChat = ({
                 </>
               )}
               {canDeleteMessage && (
-                <div className="hidden group-hover:flex items-center gap-x-2 absolute p-1 -top-2 right-5 bg-white dark:bg-zinc-800 border rounded-sm">
+                <div className="hidden group-hover:flex items-center gap-x-2 p-1 bg-white dark:bg-zinc-800 border rounded-sm">
                   {canEditMessage && (
                     <ActionTooltip label="Edit">
                       <Edit
-                        onClick={() => setIsEditing(true)}
+                        onClick={() => setIsEditing(!isEditing)}
                         className="cursor-pointer ml-auto w-4 h-4 text-zinc-500 hover:text-zinc-600 dark:hover:text-zinc-300 transition"
                       />
                     </ActionTooltip>

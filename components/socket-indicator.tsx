@@ -9,7 +9,7 @@ export const SocketIndicator = () => {
     return (
       <Badge
         variant="outline"
-        className="bg-neutral-600 text-white border-none rounded-lg"
+        className="bg-yellow-600 text-white border-none rounded-lg"
       ></Badge>
     );
   }

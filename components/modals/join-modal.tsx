@@ -32,25 +32,30 @@ export const JoinModal = () => {
   }
   return (
     <Dialog open>
-      <DialogContent className="bg-white text-black p-0 overflow-hidden">
+      <DialogContent className="bg-neutral-800/10 text-white p-2 overflow-hidden">
         <DialogHeader className="pt-8 px-6">
           <DialogTitle className="text-center text-2xl font-bold">
             Join Chat
           </DialogTitle>
         </DialogHeader>
         <div className="flex flex-col p-2">
-          <h1 className="font-semibold text-md text-zinc-500">
+          <h1 className="font-semibold text-md text-zinc-500 p-2">
             Enter Invite Link
           </h1>
           <input
             onChange={(e: any) => setValue(e.target.value)}
             type="text"
-            className="bg-zinc-300/50 focus-visible:ring-0 text-black 
-                        border-0 focus-visible:ring-offset-0 p-2"
+            className="border-neutral-50/10 focus-visible:ring-0 text-white 
+                        border focus-visible:ring-offset-0 p-2 rounded-md"
           />
         </div>
-        <DialogFooter className="bg-gray-100 px-6 py-4">
-          <button onClick={handleInput}>JOIN</button>
+        <DialogFooter className="bg-neutral-600/5 px-6 py-4 ">
+          <button
+            className="hover:bg-zinc-200/10 rounded-md p-2 transition"
+            onClick={handleInput}
+          >
+            JOIN
+          </button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
