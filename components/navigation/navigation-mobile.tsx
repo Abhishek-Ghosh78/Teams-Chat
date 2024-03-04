@@ -35,9 +35,22 @@ export const NavigationMobile = async () => {
     (member) => member.profileId !== profile.id
   );
 
+  const admin = await db.chat.findUnique({
+    where: {
+      profileId: profile.id,
+    },
+    include: {
+      members: {
+        include: {
+          profile: true,
+        },
+      },
+    },
+  });
+
   return (
     <div className="h-full w-[270px] px-4 py-6 dark:bg-neutral-800/50 relative">
-      <NavigationHeader chat={chat} />
+      <NavigationHeader chat={chat} admin={admin} />
       <NavigationSearch
         data={[
           {
