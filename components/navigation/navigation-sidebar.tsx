@@ -7,7 +7,7 @@ import { NavigationHeader } from "./navigation-header";
 import { NavigationSearch } from "./navigation-search";
 import { db } from "@/lib/db";
 import { currentProfile } from "@/lib/current-profile";
-import { UserButton, redirectToSignIn } from "@clerk/nextjs";
+import { redirectToSignIn } from "@clerk/nextjs";
 
 export const NavigationSidebar = async () => {
   const profile = await currentProfile();
