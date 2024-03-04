@@ -1,5 +1,4 @@
 "use client";
-import { MemberRole } from "@prisma/client";
 import { UserAvatar } from "../useAvatar";
 import Image from "next/image";
 import { ActionTooltip } from "../action-tooltip";
@@ -14,7 +13,6 @@ import { useModal } from "@/hooks/use-modal-store";
 import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
 import axios from "axios";
 import { cn } from "@/lib/utils";
-import { useRouter } from "next/navigation";
 
 interface DirectChatProps {
   id: string;
@@ -48,8 +46,6 @@ export const DirectChat = ({
   const [isEditing, setIsEditing] = useState(false);
 
   const { onOpen } = useModal();
-
-  const router = useRouter();
 
   const formSchema = z.object({
     content: z.string().min(1),
@@ -123,7 +119,7 @@ export const DirectChat = ({
                 <>
                   <h1
                     className={cn(
-                      "md:text-lg text-2xl text-zinc-200 ",
+                      "md:text-lg text-2xl text-zinc-200",
                       deleted &&
                         "italic text-zinc-500 dark:text-zinc-400 text-xs mt-1"
                     )}

@@ -20,14 +20,13 @@ import { useRouter } from "next/navigation";
 
 interface NavigationHeaderProps {
   chat: any;
+  admin: any;
 }
 
-export const NavigationHeader = ({ chat }: NavigationHeaderProps) => {
+export const NavigationHeader = ({ chat, admin }: NavigationHeaderProps) => {
   const { onOpen } = useModal();
 
   const router = useRouter();
-
-  // console.log(chat?.id);
 
   return (
     <DropdownMenu>
@@ -37,32 +36,34 @@ export const NavigationHeader = ({ chat }: NavigationHeaderProps) => {
           <ChevronDown className="h-4 w-4 ml-auto" />
         </button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent>
-        <DropdownMenuItem
-          onClick={() => router.push("/")}
-          className="text-gray-600 dark:text-gray-400 px-3 py-2 text-sm cursor-pointer"
-        >
-          Home
-          <Home className="h-4 w-4 ml-5" />
-        </DropdownMenuItem>
-        <DropdownMenuItem
-          onClick={() => {
-            onOpen("invite", { chat: chat });
-          }}
-          className="text-gray-600 dark:text-gray-400 px-3 py-2 text-sm cursor-pointer"
-        >
-          Invite People
-          <UserPlus className="h-4 w-4 ml-5" />
-        </DropdownMenuItem>
+      {admin && (
+        <DropdownMenuContent>
+          <DropdownMenuItem
+            onClick={() => router.push("/")}
+            className="text-gray-600 dark:text-gray-400 px-3 py-2 text-sm cursor-pointer"
+          >
+            Home
+            <Home className="h-4 w-4 ml-5" />
+          </DropdownMenuItem>
+          <DropdownMenuItem
+            onClick={() => {
+              onOpen("invite", { chat: chat });
+            }}
+            className="text-gray-600 dark:text-gray-400 px-3 py-2 text-sm cursor-pointer"
+          >
+            Invite People
+            <UserPlus className="h-4 w-4 ml-5" />
+          </DropdownMenuItem>
 
-        <DropdownMenuItem
-          className="text-gray-600 dark:text-gray-400 px-3 py-2 text-sm cursor-pointer"
-          onClick={() => onOpen("createGroup")}
-        >
-          Create Group
-          <Users className="h-4 w-4 ml-5" />
-        </DropdownMenuItem>
-      </DropdownMenuContent>
+          <DropdownMenuItem
+            className="text-gray-600 dark:text-gray-400 px-3 py-2 text-sm cursor-pointer"
+            onClick={() => onOpen("createGroup")}
+          >
+            Create Group
+            <Users className="h-4 w-4 ml-5" />
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      )}
     </DropdownMenu>
   );
 };
